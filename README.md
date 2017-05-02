@@ -1,2 +1,2 @@
 # hello-world
-just another repositiry
+i like js and what to work towards php.
