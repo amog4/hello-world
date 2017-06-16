@@ -1,0 +1,41 @@
+# import packages
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# import dataset
+dataset = pd.read_csv('D:/iris.data.csv')
+dataset.columns=["sepal length in cm","sepal width in cm","petal length in cm"," petal width in cm","Class"]
+X = dataset.iloc[:,0:4].values
+y = dataset.iloc[:,4].values
+
+
+# Categorical variables
+from sklearn.preprocessing import LabelEncoder
+LE = LabelEncoder()
+y=LE.fit_transform(y)
+             
+# SPLIT THE DATASET 
+from sklearn.cross_validation import train_test_split
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=0)
+
+
+# standardization
+from sklearn.preprocessing import StandardScaler
+Sc = StandardScaler()
+X_train = Sc.fit_transform(X_train)
+X_test = Sc.fit_transform(X_test)
+              
+# implementation of classification
+
+from sklearn.lda import LDA
+classification = LDA()
+classification.fit(X_train,y_train)
+
+# prediction
+y_prid = classification.predict(X_test)
+
+# confusion matrix
+
+from sklearn.metrics import confusion_matrix
+cm =confusion_matrix(y_test,y_prid)
